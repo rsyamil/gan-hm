@@ -171,7 +171,7 @@ class WGan:
                 g_loss = self.wgan.train_on_batch(noise, real_label)                
                 g_losses[i, :] = g_loss
                 
-                print ("%d [D loss: %f, acc.: %.2f%%] [G loss: %f]" % (i, d_loss[0], 100*d_loss[1], g_loss))
+                print ("%d [D loss: %f] [G loss: %f]" % (i, d_loss[0], g_loss))
                 util.plotAllLosses(d_losses, g_losses, name="wgan_losses")
                 
                 if i % checkpoint == 0:
@@ -179,10 +179,10 @@ class WGan:
                     np.save("losses/"+self.name+"_d_losses.npy", np.array(d_losses))
                     np.save("losses/"+self.name+"_g_losses.npy", np.array(g_losses))
 
-            self.gan.save('wgan.h5')
+            self.wgan.save('wgan.h5')
         else:
             print("Trained model loaded")
-            self.gan = load_model('wgan.h5')
+            self.wgan = load_model('wgan.h5')
 
 if __name__ == "__main__":
 
